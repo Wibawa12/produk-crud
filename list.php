@@ -4,10 +4,12 @@ $product = new Product();
 $products = $product->getAll();
 ?>
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Produk</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
@@ -52,7 +54,7 @@ $products = $product->getAll();
                             <?php endif; ?>
                         </td>
                         <td>
-                            <a href="edit.php?id=<?= $p['id'] ?>" style="color:blue;">Edit</a> |
+                            <a href="edit.php?id=<?= $p['id'] ?>">Edit</a> |
                             <a href="delete.php?id=<?= $p['id'] ?>" 
                                onclick="return confirm('Yakin hapus produk ini?')">Hapus</a>
                         </td>
