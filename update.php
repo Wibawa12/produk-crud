@@ -43,12 +43,10 @@ if (!empty($_FILES['gambar']['name'])) {
     } elseif ($file['size'] > $max_size) {
         $errors[] = "Ukuran gambar maksimal 2 MB.";
     } else {
-        // Hapus gambar lama jika ada
         if ($product->gambar_path && file_exists($product->gambar_path)) {
             unlink($product->gambar_path);
         }
 
-        // Simpan baru
         $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
         $filename = 'produk_' . time() . '_' . uniqid() . '.' . $ext;
         $target = 'uploads/' . $filename;
@@ -70,8 +68,8 @@ if (!empty($errors)) {
 $product->nama = $nama;
 $product->harga = $harga;
 $product->kategori = $kategori;
-$product->status = $status;
 $product->gambar_path = $gambar_path;
+$product->status = $status;
 
 if ($product->save()) {
     Utility::redirect('list.php', 'Data produk berhasil diperbarui.');
