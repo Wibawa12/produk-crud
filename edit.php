@@ -28,21 +28,21 @@ if (!$product->setById($id)) {
         <form method="POST" action="update.php" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?= $product->getId() ?>">
 
-            <div>
+            <div class="nama-produk">
                 <label>Nama Produk:</label><br>
                 <input type="text" name="nama" 
                        value="<?= htmlspecialchars($product->nama) ?>" 
                        required maxlength="100">
             </div>
 
-            <div>
+            <div class="harga-produk">
                 <label>Harga (Rp):</label><br>
                 <input type="number" name="harga" step="0.01" min="0"
                        value="<?= htmlspecialchars($product->harga) ?>" 
                        required>
             </div>
 
-            <div>
+            <div class="kategori-produk">
                 <label>Kategori:</label><br>
                 <select name="kategori" required style="width:100%; padding:5px;">
                     <option value="">-- Pilih --</option>
@@ -51,7 +51,7 @@ if (!$product->setById($id)) {
                 </select>
             </div>
 
-            <div>
+            <div class="status-produk">
                 <label>Status:</label><br>
                 <select name="status" required style="width:100%; padding:5px;">
                     <option value="tersedia" <?= $product->status === 'tersedia' ? 'selected' : '' ?>>Tersedia</option>
@@ -59,7 +59,7 @@ if (!$product->setById($id)) {
                 </select>
             </div>
 
-            <div>
+            <div class="gambar-produk">
                 <label>Gambar Saat Ini:</label><br>
                 <?php if ($product->gambar_path && file_exists($product->gambar_path)): ?>
                     <img src="<?= htmlspecialchars($product->gambar_path) ?>" width="100" style="border:1px solid #ccc;">
@@ -69,7 +69,7 @@ if (!$product->setById($id)) {
                 <?php endif; ?>
             </div>
 
-            <div>
+            <div class="ganti-gambar">
                 <label>Ganti Gambar (jpg/png, <= 2MB):</label><br>
                 <input type="file" name="gambar" accept="image/jpeg,image/png">
                 <p style="font-size:0.9em; color:#666;">Opsional. Biarkan kosong jika tidak ingin mengganti.</p>
