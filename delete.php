@@ -11,7 +11,7 @@ if (!$product->setById($id)) {
     Utility::redirect('list.php', 'Produk tidak ditemukan.');
 }
 
-// Hapus file gambar jika ada
+// Menghapus gambar jika ada
 if ($product->gambar_path && file_exists($product->gambar_path)) {
     unlink($product->gambar_path);
 }
