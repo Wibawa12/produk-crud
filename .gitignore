@@ -1,20 +1,13 @@
-# Database & konfigurasi lokal (jangan commit!)
+# Konfigurasi lokal (opsional, tapi aman)
 inc/config.local.php
 
-# Folder upload
+# File upload — tidak wajib di-commit (karena bersifat dinamis)
 /uploads/*
 !/uploads/.gitkeep
 
-# Artefak sistem
+# File sistem & IDE
 .DS_Store
 Thumbs.db
-
-# IDE / Editor
 .vscode/
 .idea/
 *.swp
-*.swo
-
-# Log & cache
-logs/
-*.log
