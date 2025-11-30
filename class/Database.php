@@ -1,4 +1,6 @@
 <?php
+// class/Database.php
+
 class Database {
     public $conn;
 
