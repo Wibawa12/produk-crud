@@ -1,85 +1,101 @@
 <?php
 require 'inc/config.php';
 
+// Ambil ID dari URL
 $id = (int)($_GET['id'] ?? 0);
-$product = new Product();
+if (!$id) {
+    Utility::redirect('list.php', 'ID produk tidak valid.');
+}
 
+// Load produk berdasarkan ID
+$product = new Product();
 if (!$product->setById($id)) {
     Utility::redirect('list.php', 'Produk tidak ditemukan.');
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Produk</title>
+  <meta charset="UTF-8">
+  <title>Edit Produk #<?= $product->getId() ?></title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <h1>Edit Produk #<?= $product->getId() ?></h1>
-    </header>
+  <header>
+    <h1>Edit Produk #<?= $product->getId() ?></h1>
+  </header>
 
-    <?php Utility::showNav(); ?>
+  <?php Utility::showNav(); ?>
 
-    <main style="padding:20px; max-width:600px; margin:0 auto;">
-        <?php Utility::showFlash(); ?>
+  <main>
+    <?php Utility::showFlash(); ?>
 
-        <form method="POST" action="update.php" enctype="multipart/form-data">
-            <input type="hidden" name="id" value="<?= $product->getId() ?>">
+    <form class="edit-form" method="POST" action="update.php" enctype="multipart/form-data">
+      <input type="hidden" name="id" value="<?= $product->getId() ?>">
 
-            <div class="nama-produk">
-                <label>Nama Produk:</label><br>
-                <input type="text" name="nama" 
-                       value="<?= htmlspecialchars($product->nama) ?>" 
-                       required maxlength="100">
-            </div>
+      <!-- Nama Produk -->
+      <div class="form-group">
+        <label for="nama">Nama Produk</label>
+        <input type="text" id="nama" name="nama" 
+               value="<?= htmlspecialchars($product->nama) ?>" 
+               required maxlength="100">
+      </div>
 
-            <div class="harga-produk">
-                <label>Harga (Rp):</label><br>
-                <input type="number" name="harga" step="0.01" min="0"
-                       value="<?= htmlspecialchars($product->harga) ?>" 
-                       required>
-            </div>
+      <!-- Harga -->
+      <div class="form-group">
+        <label for="harga">Harga (Rp)</label>
+        <input type="number" id="harga" name="harga" step="0.01" min="0"
+               value="<?= htmlspecialchars($product->harga) ?>" 
+               required>
+      </div>
 
-            <div class="kategori-produk">
-                <label>Kategori:</label><br>
-                <select name="kategori" required style="width:100%; padding:5px;">
-                    <option value="">-- Pilih --</option>
-                    <option value="elektronik" <?= $product->kategori === 'elektronik' ? 'selected' : '' ?>>Elektronik</option>
-                    <option value="pakaian" <?= $product->kategori === 'pakaian' ? 'selected' : '' ?>>Pakaian</option>
-                </select>
-            </div>
+      <!-- Kategori -->
+      <div class="form-group">
+        <label for="kategori">Kategori</label>
+        <select id="kategori" name="kategori" required>
+          <option value="">-- Pilih --</option>
+          <option value="elektronik" <?= $product->kategori === 'elektronik' ? 'selected' : '' ?>>
+            Elektronik
+          </option>
+          <option value="pakaian" <?= $product->kategori === 'pakaian' ? 'selected' : '' ?>>
+            Pakaian
+          </option>
+        </select>
+      </div>
 
-            <div class="status-produk">
-                <label>Status:</label><br>
-                <select name="status" required style="width:100%; padding:5px;">
-                    <option value="tersedia" <?= $product->status === 'tersedia' ? 'selected' : '' ?>>Tersedia</option>
-                    <option value="habis" <?= $product->status === 'habis' ? 'selected' : '' ?>>Habis</option>
-                </select>
-            </div>
+      <!-- Status -->
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" name="status" required>
+          <option value="tersedia" <?= $product->status === 'tersedia' ? 'selected' : '' ?>>
+            Tersedia
+          </option>
+          <option value="habis" <?= $product->status === 'habis' ? 'selected' : '' ?>>
+            Habis
+          </option>
+        </select>
+      </div>
 
-            <div class="gambar-produk">
-                <label>Gambar Saat Ini:</label><br>
-                <?php if ($product->gambar_path && file_exists($product->gambar_path)): ?>
-                    <img src="<?= htmlspecialchars($product->gambar_path) ?>" width="100" style="border:1px solid #ccc;">
-                    <p><em>Biarkan kosong untuk mempertahankan gambar.</em></p>
-                <?php else: ?>
-                    <p>— Tidak ada gambar —</p>
-                <?php endif; ?>
-            </div>
+      <!-- Gambar Saat Ini -->
+      <?php if ($product->gambar_path && file_exists($product->gambar_path)): ?>
+        <div class="current-image-container">
+          <span class="current-image-label">Gambar Saat Ini:</span><br>
+          <img src="<?= htmlspecialchars($product->gambar_path) ?>" alt="Gambar produk">
+        </div>
+      <?php endif; ?>
 
-            <div class="ganti-gambar">
-                <label>Ganti Gambar (jpg/png, <= 2MB):</label><br>
-                <input type="file" name="gambar" accept="image/jpeg,image/png">
-                <p style="font-size:0.9em; color:#666;">Opsional. Biarkan kosong jika tidak ingin mengganti.</p>
-            </div>
+      <!-- Upload Gambar Baru -->
+      <div class="form-group">
+        <label for="gambar">Ganti Gambar (JPG/PNG, <= 2 MB)</label>
+        <input type="file" id="gambar" name="gambar" accept="image/jpeg,image/png">
+        <p class="image-hint">Biarkan kosong untuk mempertahankan gambar lama.</p>
+      </div>
 
-            <button type="submit" style="padding:8px 20px; background:#28a745; color:#fff; border:none; cursor:pointer;">
-                Perbarui
-            </button>
-            <a href="list.php" style="margin-left:10px;">Batal</a>
-        </form>
-    </main>
+      <div class="btn-group">
+        <button type="submit" class="btn btn-primary">Perbarui</button>
+        <a href="list.php" class="btn btn-cancel">Batal</a>
+      </div>
+    </form>
+  </main>
 </body>
 </html>

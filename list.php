@@ -24,44 +24,46 @@ $products = $product->getAll();
         <?php if (empty($products)): ?>
             <p>Belum ada data produk.</p>
         <?php else: ?>
-            <table border="1" cellpadding="8" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nama</th>
-                        <th>Harga</th>
-                        <th>Kategori</th>
-                        <th>Status</th>
-                        <th>Gambar</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($products as $p): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($p['id']) ?></td>
-                        <td><?= htmlspecialchars($p['nama']) ?></td>
-                        <td>Rp <?= number_format($p['harga'], 0, ',', '.') ?></td>
-                        <td><?= htmlspecialchars($p['kategori']) ?></td>
-                        <td><?= $p['status'] === 'tersedia' ? 'Tersedia' : 'Habis' ?></td>
-                        <td>
-                            <?php if ($p['gambar_path']): ?>
-                                <img src="<?= htmlspecialchars($p['gambar_path']) ?>" 
-                                     alt="Gambar produk" 
-                                     width="50">
-                            <?php else: ?>
-                                —
-                            <?php endif; ?>
-                        </td>
-                        <td>
-                            <a href="edit.php?id=<?= $p['id'] ?>">Edit</a> |
-                            <a href="delete.php?id=<?= $p['id'] ?>" 
-                               onclick="return confirm('Yakin hapus produk ini?')">Hapus</a>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table border="1" cellpadding="10" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nama</th>
+                            <th>Harga</th>
+                            <th>Kategori</th>
+                            <th>Status</th>
+                            <th>Gambar</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($products as $p): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($p['id']) ?></td>
+                            <td><?= htmlspecialchars($p['nama']) ?></td>
+                            <td>Rp <?= number_format($p['harga'], 0, ',', '.') ?></td>
+                            <td><?= htmlspecialchars($p['kategori']) ?></td>
+                            <td><?= $p['status'] === 'tersedia' ? 'Tersedia' : 'Habis' ?></td>
+                            <td>
+                                <?php if ($p['gambar_path']): ?>
+                                    <img src="<?= htmlspecialchars($p['gambar_path']) ?>" 
+                                        alt="Gambar produk" 
+                                        width="50">
+                                <?php else: ?>
+                                    —
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <a href="edit.php?id=<?= $p['id'] ?>" class="edit">Edit</a> |
+                                <a href="delete.php?id=<?= $p['id'] ?>" 
+                                onclick="return confirm('Yakin ingin menghapus produk ini?')" class="delete">Delete</a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         <?php endif; ?>
     </main>
 </body>
