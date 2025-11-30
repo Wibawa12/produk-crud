@@ -3,12 +3,11 @@
 
 class Utility {
     // Menampilkan navigasi
-    public static function showNav() {
-        echo '<nav>';
-        echo '<ul>';
+    public static function showNav($pages = NAV_PAGES) {
+        echo '<nav><ul>';
         foreach ($pages as $item) {
-            $title = htmlspecialchars($item['title']);
-            $url = htmlspecialchars($item['url']);
+            $title = htmlspecialchars($item['title'] ?? '', ENT_QUOTES, 'UTF-8');
+            $url   = htmlspecialchars($item['url']   ?? '', ENT_QUOTES, 'UTF-8');
             echo "<li><a href='$url'>$title</a></li>";
         }
         echo '</ul></nav>';
