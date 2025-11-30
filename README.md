@@ -37,6 +37,9 @@ Tujuan utamanya adalah menunjukkan integrasi antara aplikasi back-end dengan bas
   │└─ style.css → CSS eksternal, responsif & rapi<br>
   │<br>
   ├─ uploads/ # Penyimpanan file gambar yang diunggah<br>
+  │└─ .gitkeep # File .gitkeep tidak punya fungsi teknis, hanya konvensi agar Git tetap melacak folder kosong.<br>
+  │<br>
+  ├─ .gitignore # Agar file seperti kredensial DB, log, cache, atau hasil upload tidak ikut ke repositori.<br>
   │<br>
   ├─ \*.php # Halaman aplikasi: index, list, create, edit, save, update, delete<br>
   │<br>
