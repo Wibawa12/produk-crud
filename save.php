@@ -14,7 +14,7 @@ $status = $_POST['status'] ?? 'tersedia';
 // Validasi dasar
 $errors = [];
 if (empty($nama)) $errors[] = "Nama wajib diisi.";
-if (!is_numeric($harga) || $harga < 0) $errors[] = "Harga harus angka ≥ 0.";
+if (!is_numeric($harga) || $harga < 0) $errors[] = "Harga harus angka >= 0.";
 if (!in_array($kategori, ['elektronik', 'pakaian'])) $errors[] = "Kategori tidak valid.";
 if (!in_array($status, ['tersedia', 'habis'])) $status = 'tersedia';
 
@@ -63,7 +63,7 @@ $product->status = $status;
 
 if ($product->save()) {
     Utility::clearPrefill();
-    Utility::redirect('list.php', '✅ Produk berhasil ditambahkan.');
+    Utility::redirect('list.php', 'Produk berhasil ditambahkan.');
 } else {
-    Utility::redirect('create.php', '❌ Gagal menyimpan data.', $prefill);
+    Utility::redirect('create.php', 'Gagal menyimpan data.', $prefill);
 }
