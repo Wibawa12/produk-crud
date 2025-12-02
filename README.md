@@ -75,6 +75,7 @@ Tujuan utamanya adalah menunjukkan integrasi antara aplikasi back-end dengan bas
 - Sesuaikan konstanta berikut:
 
   ```php
+  const DB_HOST = 'localhost';
   const DB_USER = 'root';      // ganti jika user MySQL berbeda
   const DB_PASS = '';          // ganti jika pakai password
   const DB_NAME = 'produk_crud';
